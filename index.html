@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bnews</title>
+<link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.10.0/forge.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script>
+<header>
+<h1>Bnews</h1>
+<nav>
+<ul>
+<li><a href="#" id="tabOsintProofs" onclick="activateTab('OSINT PROOFS'); return false;">OSINT PROOFS</a></li>
+<li><a href="#" id="tabIPFS" onclick="activateTab('IPFS'); return false;">IPFS</a></li>
+<li><a href="#" id="tabMPValues" onclick="activateTab('Measuring Politicians\' Values'); return false;">Measuring Politicians' Values</a></li>
+<li><a href="#" id="tabAbout" onclick="activateTab('about'); return false;">About</a></li>
+</ul>
+</nav>
+<div class="icons" style="display: flex; justify-content: space-between;">
+<a href="#" onclick="connectMetaMask(); return false;"><svg height="32" id="metamask" viewbox="0 0 212 189" width="32" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polygon fill="#CDBDB2" points="60.75 173.25 88.313 180.563 88.313 171 90.563 168.75 106.313 168.75 106.313 180 106.313 187.875 89.438 187.875 68.625 178.875"></polygon><polygon fill="#CDBDB2" points="105.75 173.25 132.75 180.563 132.75 171 135 168.75 150.75 168.75 150.75 180 150.75 187.875 133.875 187.875 113.063 178.875" transform="matrix(-1 0 0 1 256.5 0)"></polygon><polygon fill="#393939" points="90.563 152.438 88.313 171 91.125 168.75 120.375 168.75 123.75 171 121.5 152.438 117 149.625 94.5 150.188"></polygon><polygon fill="#F89C35" points="75.375 27 88.875 58.5 95.063 150.188 117 150.188 123.75 58.5 136.125 27"></polygon><polygon fill="#F89D35" points="16.313 96.188 .563 141.75 39.938 139.5 65.25 139.5 65.25 119.813 64.125 79.313 58.5 83.813"></polygon><polygon fill="#D87C30" points="46.125 101.25 92.25 102.375 87.188 126 65.25 120.375"></polygon><polygon fill="#EA8D3A" points="46.125 101.813 65.25 119.813 65.25 137.813"></polygon><polygon fill="#F89D35" points="65.25 120.375 87.75 126 95.063 150.188 90 153 65.25 138.375"></polygon><polygon fill="#EB8F35" points="65.25 138.375 60.75 173.25 90.563 152.438"></polygon><polygon fill="#EA8E3A" points="92.25 102.375 95.063 150.188 86.625 125.719"></polygon><polygon fill="#D87C30" points="39.375 138.938 65.25 138.375 60.75 173.25"></polygon><polygon fill="#EB8F35" points="12.938 188.438 60.75 173.25 39.375 138.938 .563 141.75"></polygon><polygon fill="#E8821E" points="88.875 58.5 64.688 78.75 46.125 101.25 92.25 102.938"></polygon><polygon fill="#DFCEC3" points="60.75 173.25 90.563 152.438 88.313 170.438 88.313 180.563 68.063 176.625"></polygon><polygon fill="#DFCEC3" points="121.5 173.25 150.75 152.438 148.5 170.438 148.5 180.563 128.25 176.625" transform="matrix(-1 0 0 1 272.25 0)"></polygon><polygon fill="#393939" points="70.313 112.5 64.125 125.438 86.063 119.813" transform="matrix(-1 0 0 1 150.188 0)"></polygon><polygon fill="#E88F35" points="12.375 .563 88.875 58.5 75.938 27"></polygon><path d="M12.3750002,0.562500008 L2.25000003,31.5000005 L7.87500012,65.250001 L3.93750006,67.500001 L9.56250014,72.5625 L5.06250008,76.5000011 L11.25,82.1250012 L7.31250011,85.5000013 L16.3125002,96.7500014 L58.5000009,83.8125012 C79.1250012,67.3125004 89.2500013,58.8750003 88.8750013,58.5000009 C88.5000013,58.1250009 63.0000009,38.8125006 12.3750002,0.562500008 Z" fill="#8E5A30"></path><g transform="matrix(-1 0 0 1 211.5 0)"><polygon fill="#F89D35" points="16.313 96.188 .563 141.75 39.938 139.5 65.25 139.5 65.25 119.813 64.125 79.313 58.5 83.813"></polygon><polygon fill="#D87C30" points="46.125 101.25 92.25 102.375 87.188 126 65.25 120.375"></polygon><polygon fill="#EA8D3A" points="46.125 101.813 65.25 119.813 65.25 137.813"></polygon><polygon fill="#F89D35" points="65.25 120.375 87.75 126 95.063 150.188 90 153 65.25 138.375"></polygon><polygon fill="#EB8F35" points="65.25 138.375 60.75 173.25 90 153"></polygon><polygon fill="#EA8E3A" points="92.25 102.375 95.063 150.188 86.625 125.719"></polygon><polygon fill="#D87C30" points="39.375 138.938 65.25 138.375 60.75 173.25"></polygon><polygon fill="#EB8F35" points="12.938 188.438 60.75 173.25 39.375 138.938 .563 141.75"></polygon><polygon fill="#E8821E" points="88.875 58.5 64.688 78.75 46.125 101.25 92.25 102.938"></polygon><polygon fill="#393939" points="70.313 112.5 64.125 125.438 86.063 119.813" transform="matrix(-1 0 0 1 150.188 0)"></polygon><polygon fill="#E88F35" points="12.375 .563 88.875 58.5 75.938 27"></polygon><path d="M12.3750002,0.562500008 L2.25000003,31.5000005 L7.87500012,65.250001 L3.93750006,67.500001 L9.56250014,72.5625 L5.06250008,76.5000011 L11.25,82.1250012 L7.31250011,85.5000013 L16.3125002,96.7500014 L58.5000009,83.8125012 C79.1250012,67.3125004 89.2500013,58.8750003 88.8750013,58.5000009 C88.5000013,58.1250009 63.0000009,38.8125006 12.3750002,0.562500008 Z" fill="#8E5A30"></path></g></g></svg></a>
+<a href="https://twitter.com/Vasavadvas"><svg height="32" viewbox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+<a href="https://www.linkedin.com/in/alexei-boklag/"><svg height="32" viewbox="0 0 48 48" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z" fill="#0078d4"></path><path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path><path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path><path d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z" fill="#fff"></path></svg></a>
+</div>
+</header>
+<div style="display: flex; justify-content: space-between;">
+<p>Your Public: <span id="address"></span></p>
+<p>Nonce: <span id="nonce"></span></p>
+<p>Chainid: <span id="network"></span></p>
+<p>Balance: <span id="balance"></span> ETH</p>
+</div>
+<script>
+    async function connectMetaMask() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const address = accounts[0];
+                
+                // Получаем nonce
+                const nonce = await window.ethereum.request({
+                    method: 'eth_getTransactionCount',
+                    params: [address, 'latest']
+                });
+
+                // Получаем сеть
+                const networkId = await window.ethereum.request({ method: 'net_version' });
+                let networkName = '';
+                switch (networkId) {
+                    case "1":
+                        networkName = "Ethereum Mainnet";
+                        break;
+                    case "3":
+                        networkName = "Ropsten Testnet";
+                        break;
+                    case "4":
+                        networkName = "Rinkeby Testnet";
+                        break;
+                    // Добавьте другие сети по необходимости
+                    default:
+                        networkName = "Unknown";
+                }
+
+                // Получаем баланс
+                const balanceWei = await window.ethereum.request({
+                    method: 'eth_getBalance',
+                    params: [address, 'latest']
+                });
+                let balanceEth = parseFloat(balanceWei) / 1e18; balanceEth = balanceEth.toFixed(4);
+                
+                document.getElementById('address').innerText = address;
+                document.getElementById('nonce').innerText = parseInt(nonce, 16);
+                document.getElementById('network').innerText = parseInt(networkId, 10);
+                document.getElementById('balance').innerText = balanceEth;
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        } else {
+            alert("MetaMask не обнаружен. Установите или активируйте MetaMask.");
+        }
+    }
+</script>
+<div class="container">
+<div id="contentMPValues" style="display: none;"><input id="input1" placeholder="Input country" style="margin-top: 30px; margin-left: 20px;" type="text"/><input id="input2" placeholder="Input Full name" style="margin-left: 20px;" type="text"/><button id="search-btn" style="margin-left: 20px;">Search</button><div id="result-div" style="display:none;">
+<img alt="Result Image" id="result-img" src="1867-512x512.png"/><p>Bart Simpson Good man <div class="columns">
+<div class="column">
+<h2>Politician's Activity</h2>
+<ol>
+<li>Legislative Activity:
+                <ul>
+<li>Green: More than 10 bills per year.</li>
+<li>Yellow: 5-10 bills per year.</li>
+<li>Red: Less than 5 bills per year.</li>
+</ul>
+</li>
+<li>Participation in Voting:
+                <ul>
+<li>Green: Participation in 90% of votes.</li>
+<li>Yellow: Participation in 70-90% of votes.</li>
+<li>Red: Participation in less than 70% of votes.</li>
+</ul>
+</li>
+<li>Public Presence:
+                <ul>
+<li>Green: Regular public appearances and communication.</li>
+<li>Yellow: Occasional public appearances.</li>
+<li>Red: Rare or no public appearances.</li>
+</ul>
+</li>
+<li>Response to Public Inquiries:
+                <ul>
+<li>Green: Responds to most public inquiries promptly.</li>
+<li>Yellow: Responds to some inquiries with delays.</li>
+<li>Red: Rarely or never responds to public inquiries.</li>
+</ul>
+</li>
+<li>Engagement in Community Projects:
+                <ul>
+<li>Green: Actively engages in or initiates community projects.</li>
+<li>Yellow: Occasionally participates in community projects.</li>
+<li>Red: Rarely or never involved in community projects.</li>
+</ul>
+</li>
+<li>Transparency and Accountability:
+                <ul>
+<li>Green: Regularly provides updates and is transparent about activities.</li>
+<li>Yellow: Provides updates occasionally with some lack of transparency.</li>
+<li>Red: Lacks transparency and rarely provides updates.</li>
+</ul>
+</li>
+<li>Engagement with Constituents:
+                <ul>
+<li>Green: Regularly meets and engages with constituents.</li>
+<li>Yellow: Occasionally meets constituents.</li>
+<li>Red: Rarely or never meets constituents.</li>
+</ul>
+</li>
+<li>Use of Public Funds:
+                <ul>
+<li>Green: Uses funds appropriately and transparently.</li>
+<li>Yellow: Occasional questionable use of funds.</li>
+<li>Red: Misuse or misappropriation of public funds.</li>
+</ul>
+</li>
+<li>Conflict of Interest Management:
+                <ul>
+<li>Green: Always declares and manages conflicts of interest.</li>
+<li>Yellow: Occasionally fails to declare conflicts of interest.</li>
+<li>Red: Regularly has undeclared conflicts of interest.</li>
+</ul>
+</li>
+<li>Attendance in Official Meetings:
+                <ul>
+<li>Green: Attends more than 90% of meetings.</li>
+<li>Yellow: Attends 70-90% of meetings.</li>
+<li>Red: Attends less than 70% of meetings.</li>
+</ul>
+</li>
+<li>Training and Professional Development:
+                <ul>
+<li>Green: Regularly attends training and development programs.</li>
+<li>Yellow: Occasionally attends training programs.</li>
+<li>Red: Rarely or never attends any professional development programs.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="column">
+<h2>Corruption Level</h2>
+<ol>
+<li>Income Declarations:
+                <ul>
+<li>Green: All assets are explained and match the income.</li>
+<li>Yellow: Minor discrepancies between assets and income.</li>
+<li>Red: Significant discrepancies or lack of declaration.</li>
+</ul>
+</li>
+<li>Business Connections:
+                <ul>
+<li>Green: No business connections.</li>
+<li>Yellow: Connections exist, but they are transparent and legal.</li>
+<li>Red: Hidden or illegal connections.</li>
+</ul>
+</li>
+<li>Reports from Independent Anti-Corruption Organizations:
+                <ul>
+<li>Green: Positive reports.</li>
+<li>Yellow: Neutral reports.</li>
+<li>Red: Negative reports.</li>
+</ul>
+</li>
+<li>Journalistic Investigations:
+                <ul>
+<li>Green: No negative investigations.</li>
+<li>Yellow: Investigations exist, but without evidence.</li>
+<li>Red: Investigations with evidence of corruption.</li>
+</ul>
+</li>
+<li>Court Cases and Investigations:
+                <ul>
+<li>Green: No court cases.</li>
+<li>Yellow: Pending cases without a court decision.</li>
+<li>Red: Court decisions proving guilt.</li>
+</ul>
+</li>
+<li>Comparison of Living Standards:
+                <ul>
+<li>Green: Living standard matches declared income.</li>
+<li>Yellow: Minor discrepancies between living standard and declared income.</li>
+<li>Red: Significant discrepancy between real living standard and declared income.</li>
+</ul>
+</li>
+<li>Feedback and Complaints from Citizens:
+                <ul>
+<li>Green: No complaints of corrupt actions.</li>
+<li>Yellow: Complaints exist, but without evidence.</li>
+<li>Red: Multiple complaints with evidence.</li>
+</ul>
+</li>
+<li>Participation in Offshore Schemes:
+                <ul>
+<li>Green: No data on offshore connections.</li>
+<li>Yellow: Data exists, but without evidence of illegal activity.</li>
+<li>Red: Evidence of participation in offshore schemes.</li>
+</ul>
+</li>
+<li>Relatives Receiving Government Contracts:
+                <ul>
+<li>Green: Relatives do not participate in government contracts.</li>
+<li>Yellow: Relatives participate, but everything is transparent and legal.</li>
+<li>Red: Evidence of corruption schemes involving relatives.</li>
+</ul>
+</li>
+<li>Real Estate and Assets Abroad:
+                <ul>
+<li>Green: No assets abroad.</li>
+<li>Yellow: Assets exist, but they match declared income.</li>
+<li>Red: Assets abroad do not match declared income.</li>
+</ul>
+</li>
+<li>Lobbying the Interests of Specific Groups:
+                <ul>
+<li>Green: No evidence of lobbying.</li>
+<li>Yellow: Rumors or unproven facts of lobbying.</li>
+<li>Red: Evidence of lobbying interests.</li>
+</ul>
+</li>
+<li>Hidden Business Interests:
+                <ul>
+<li>Green: No hidden business interests.</li>
+<li>Yellow: Rumors of hidden interests.</li>
+<li>Red: Evidence of hidden business interests.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div></p><div id="result-text" style="display:none;"><p>Bart Simpson Good man </p></div></div>
+</div>
+<div id="about" style="display: none; padding: 20px; background-color: white; margin: 20px; border-radius: 5px;">
+        I have been involved in quality control in various areas for a long time and took part in the build space project to create the implementation of my idea, which is to give a tool understandable to every person to assess the situation in the country in which he lives and evaluate the performance of each government employee the degree of his involvement, corruption.
+        <ol><li>"Bnews" is an innovative encrypted storage providing unique access to information about the actions of representatives from all branches of government.</li><li>Our platform ensures complete transparency, allowing clients to learn about official tax declarations and documents that have been approved by these individuals.</li><li>We aim to create a society where every citizen can be informed about the actions of their elected representatives.</li><li>Our system guarantees the highest level of security and confidentiality, ensuring that your data is protected.</li><li>"Bnews" employs advanced encryption technologies to ensure safe storage and data transfer.</li><li>The platform offers an intuitive interface that allows for quick and easy access to the required information.</li><li>We collaborate with experts in the fields of security and law to ensure the relevance and accuracy of the information provided.</li><li>"Bnews" is not just a data storage; it's a movement towards a more open and honest society.</li><li>Our mission is to empower every citizen to monitor the actions of their representatives and make informed decisions.</li><li>Join "Bnews" and be a part of the transparency in governance evolution!</li></ol>
+</div>
+<div id="contentOsintProofs" style="display: none; padding: 20px; background-color: white; margin: 20px; border-radius: 5px;">
+        OSINT (Open Source Intelligence) is a methodology for collecting and analyzing information obtained from open sources. Open sources include publicly available data such as information on websites, social networks, public registries, geospatial and mapping services, printed publications, and many other resources accessible to the general public.
+
+The OSINT methodology is used in various fields, including law enforcement, intelligence, journalism, and corporate security, to gather information about individuals, organizations, or any other objects of interest. The main advantage of OSINT is that it allows for the collection of a vast amount of data without violating laws or intruding into private spheres, as all the information is already publicly available.
+<ol>
+<li><strong>Officiality of the Information:</strong>
+<ul>
+<li>Documents or information should originate from recognizable and authoritative sources.</li>
+<li>Attach links or screenshots of web pages from which the information was derived.</li>
+<li>PDF documents should carry official signatures and seals of the respective organizations or individuals.</li>
+</ul>
+</li>
+<li><strong>Legality:</strong>
+<ul>
+<li>All acquired information must be collected in accordance with applicable law, without violating confidentiality and intellectual property rights.</li>
+<li>If information has been obtained with permission, copies of the relevant consents or permissions must be provided.</li>
+</ul>
+</li>
+<li><strong>PDF Format:</strong>
+<ul>
+<li>PDF documents must be of high quality, without blurring or distortion.</li>
+<li>PDF documents should not be password protected or contain restrictions on copying or printing.</li>
+</ul>
+</li>
+<li><strong>Completeness:</strong>
+<ul>
+<li>Documents and information should be complete, with no visible signs of deletion or exclusion of text parts.</li>
+<li>If a document mentions appendices or references to additional materials, these should also be provided.</li>
+</ul>
+</li>
+<li><strong>Proof of Familial and Commercial Ties:</strong>
+<ul>
+<li>Provide copies of official documents verifying familial ties (e.g., birth certificates, marriage certificates, etc.).</li>
+<li>In the case of commercial ties, provide copies of contracts, agreements, or other official documents verifying these ties.</li>
+</ul>
+</li>
+<li><strong>Verification of Crypto Wallets Based on Arkham:</strong>
+<ul>
+<li>A signed message from the wallet address, proving ownership.</li>
+<li>Provide transaction histories, if applicable, to verify the activities of the wallet.</li>
+<li>Any official documentation associated with the Arkham wallet, including setup instructions, recovery details, and other relevant information.</li>
+</ul>
+</li>
+<li><strong>Collection of Sources:</strong> We gather sources here: <a href="https://docs.google.com/forms/d/e/1FAIpQLSd0cYwhEeIk30_91ZVJtjxzyjmBiUcpipv8uzjlx9eVmTGYnA/viewform?usp=sf_link">Google Form Link</a></li>
+</ol>
+</div>
+<img id="result-img" src="1867-512x512.png" style="display:none;"/>
+<p id="result-text" style="display:none;">Bart Simpson</p>
+<script>
+function activateTab(tabName) {
+    // Reset styles for all tabs
+    var tabs = document.querySelectorAll('nav a');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].style.backgroundColor = "";
+    }
+
+    // Hide all content by default
+    
+var contents = document.querySelectorAll('[id^="content"]');
+for (var i = 0; i < contents.length; i++) {
+    contents[i].style.display = "none";
+}
+document.getElementById('about').style.display = "none";
+
+
+    // Activate the selected tab and show its content
+    switch(tabName) {
+        case 'OSINT PROOFS':
+            document.getElementById('tabOsintProofs').style.backgroundColor = "green";
+            document.getElementById('contentOsintProofs').style.display = "block";
+            break;
+        case 'Measuring Politicians\' Values':
+            document.getElementById('tabMPValues').style.backgroundColor = "green";
+            document.getElementById('contentMPValues').style.display = "block";
+            break;
+        case 'about':
+            document.getElementById('tabAbout').style.backgroundColor = "green";
+            document.getElementById('about').style.display = "block";
+            break;
+        case 'IPFS':
+            document.getElementById('tabIPFS').style.backgroundColor = "green";
+            document.getElementById('contentIPFS').style.display = "block";
+            break;
+    }
+}
+</script>
+</div><div id="contentIPFS" style="display:none;"><div class="half-screen">
+<h2>Encryption</h2>
+<label for="encryptionPassword">Password:</label>
+<input id="encryptionPassword" placeholder="Enter your password" type="text"/>
+<br/><br/>
+<input id="fileUpload" type="file"/>
+<br/><br/>
+<button onclick="encryptAndUpload()">Encrypt to IPFS</button>
+<button onclick="testEncryptionDecryption()">Check</button>
+<br/><br/>
+<p>link to file: <a href="#" id="fileLink" target="_blank"></a> <button onclick="copyLink('fileLink')">Copy</button></p>
+<p>CID: <span id="fileCID"></span> <button onclick="copyText('fileCID')">Copy CID</button></p>
+</div><div class="half-screen">
+<h2>Decryption</h2>
+<label for="decryptionPassword">Password:</label>
+<input id="decryptionPassword" placeholder="Enter passwort for decrypt" type="text"/>
+<br/><br/>
+<label for="fileURL">Link:</label>
+<input id="fileURL" placeholder="Put your link here" type="text"/>
+<br/><br/>
+<button onclick="downloadAndDecrypt()">Decrypt and download</button>
+</div></div>
+<img id="result-img" src="1867-512x512.png" style="display:none;"/>
+<p id="result-text" style="display:none;">Your search results</p>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function handleSearch() {
+        var input1 = document.getElementById('input1').value;
+        var input2 = document.getElementById('input2').value;
+        
+        if (input1 === 'USA' && input2 === 'Bart') {
+            document.getElementById('result-img').src = '1867-512x512.png';
+            document.getElementById('result-img').style.display = 'block';
+            document.getElementById('result-text').style.display = 'block';
+        } else {
+            document.getElementById('result-img').style.display = 'none';
+            document.getElementById('result-text').style.display = 'none';
+        }
+    }
+
+    document.getElementById('search-btn').addEventListener('click', handleSearch);
+});
+const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjOGY4YTk0NC02Y2E0LTRjNmUtOTVkMy0zNDdlOGU1MzEzM2YiLCJlbWFpbCI6ImJva2xhZ0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMmUzODQxOWI2Njc3MTYwYzU5ODEiLCJzY29wZWRLZXlTZWNyZXQiOiI4Zjc3YmVmM2Q3ZTBhZTNmYzI2YmRkZWNkMTViOWI3ZjhlMzkwYmU3OTdhYWM0YzAyNTY4N2M1Y2ZkZWNkZjFlIiwiaWF0IjoxNjkxNzY5OTQyfQ.KjAoWfdarGQDvKeRJODyQqiKXV5k5KcBUI48Z04PkDc'; // Поместите ваш JWT токен здесь
+
+function copyText(elementId) {
+   const el = document.createElement('textarea');
+   el.value = document.getElementById(elementId).textContent;
+   document.body.appendChild(el);
+   el.select();
+   document.execCommand('copy');
+   document.body.removeChild(el);
+   alert('Текст скопирован!');
+}
+async function testEncryptionDecryption() {
+const fileInput = document.getElementById('fileUpload');
+const encryptionPassword = document.getElementById('encryptionPassword').value;
+
+if (!fileInput.files.length) {
+   alert('Пожалуйста, выберите файл.');
+   return;
+}
+
+const file = fileInput.files[0];
+const reader = new FileReader();
+
+reader.onloadend = function() {
+   console.log("Original File Size:", reader.result.byteLength, "bytes");
+   console.log("Original File Type:", file.type);
+
+   const encryptedData = encryptAES(reader.result, encryptionPassword);
+   console.log("Encrypted Data Size:", encryptedData.length, "bytes (Base64 encoded)");
+
+   const decryptedContent = decryptAES(encryptedData, encryptionPassword);
+   console.log("Decrypted Content Size:", decryptedContent.byteLength, "bytes");
+
+   saveFile(new Blob([decryptedContent]), "test_decrypted_file.pdf", "application/pdf");
+}
+
+reader.readAsArrayBuffer(file);
+}
+function arrayBufferToWordArray(ab) {
+const u8arr = new Uint8Array(ab);
+return Uint8ArrayToWordArray(u8arr);
+}
+function convertWordArrayToUint8Array(wordArray) {
+const byteArray = [];
+const wordCount = wordArray.words.length;
+for (let i = 0; i < wordCount; i++) {
+   const word = wordArray.words[i];
+   byteArray.push((word >> 24) & 0xff);
+   byteArray.push((word >> 16) & 0xff);
+   byteArray.push((word >> 8) & 0xff);
+   byteArray.push(word & 0xff);
+}
+return new Uint8Array(byteArray.slice(0, wordArray.sigBytes));
+}
+
+function wordArrayToUint8Array(wordArray) {
+const len = wordArray.words.length;
+const u8_array = new Uint8Array(len << 2);
+let offset = 0;
+for (let i = 0; i < len; i++) {
+   let word = wordArray.words[i];
+   u8_array[offset++] = word >> 24;
+   u8_array[offset++] = (word >> 16) & 0xff;
+   u8_array[offset++] = (word >> 8) & 0xff;
+   u8_array[offset++] = word & 0xff;
+}
+return u8_array;
+}
+
+function encryptAES(data, passphrase) {
+    const iv = CryptoJS.lib.WordArray.random(16); 
+    const wordArray = CryptoJS.lib.WordArray.create(data); 
+    const encrypted = CryptoJS.AES.encrypt(wordArray, passphrase, { 
+        iv: iv, 
+        mode: CryptoJS.mode.CTR 
+    });
+    return iv.toString(CryptoJS.enc.Hex) + encrypted.toString(); 
+}
+
+function decryptAES(encryptedData, passphrase) {
+    const ivHex = encryptedData.substring(0, 32); 
+    const iv = CryptoJS.enc.Hex.parse(ivHex);
+    const encrypted = encryptedData.substring(32);
+    const decrypted = CryptoJS.AES.decrypt(encrypted, passphrase, { 
+        iv: iv, 
+        mode: CryptoJS.mode.CTR 
+    });
+    return convertWordArrayToUint8Array(decrypted);
+}
+async function downloadAndDecrypt() {
+    const decryptionPassword = document.getElementById('decryptionPassword').value;
+    const fileURL = document.getElementById('fileURL').value;
+
+    if (!decryptionPassword || !fileURL) {
+        alert("Заполните все поля");
+        return;
+    }
+
+    try {
+        const response = await axios.get(fileURL, { responseType: 'arraybuffer' });
+        console.log("Downloaded ArrayBuffer size:", response.data.byteLength);
+
+        const encryptedData = arrayBufferToString(response.data);
+        
+        const decryptedContent = decryptAES(encryptedData, decryptionPassword);
+        console.log("Decrypted content size:", decryptedContent.byteLength);
+
+        saveFile(new Blob([decryptedContent]), "decrypted_file.pdf", "application/pdf");
+    } catch (error) {
+        console.error("Ошибка при скачивании или расшифровке:", error);
+        alert("Ошибка при скачивании или расшифровке");
+    }
+}
+
+function arrayBufferToString(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return binary;
+}
+function wordArrayToArrayBuffer(wordArray) {
+    const len = wordArray.words.length;
+    const u8_array = new Uint8Array(len << 2);
+    let offset = 0;
+    for (let i = 0; i < len; i++) {
+        let word = wordArray.words[i];
+        u8_array[offset++] = word >> 24;
+        u8_array[offset++] = (word >> 16) & 0xff;
+        u8_array[offset++] = (word >> 8) & 0xff;
+        u8_array[offset++] = word & 0xff;
+    }
+    return u8_array.buffer;
+}
+
+
+function wordArrayToUint8Array(wordArray) {
+    const byteArray = [];
+    const wordCount = wordArray.words.length;
+    for (let i = 0; i < wordCount; i++) {
+        const word = wordArray.words[i];
+        byteArray.push((word >> 24) & 0xff);
+        byteArray.push((word >> 16) & 0xff);
+        byteArray.push((word >> 8) & 0xff);
+        byteArray.push(word & 0xff);
+    }
+    // Урезаем массив до действительного количества байтов
+    return new Uint8Array(byteArray.slice(0, wordArray.sigBytes));
+}
+
+function Uint8ArrayToWordArray(u8arr) {
+    const words = [];
+    let i = 0;
+    while (i < u8arr.length) {
+        words.push(
+            (u8arr[i++] << 24) |
+            (u8arr[i++] << 16) |
+            (u8arr[i++] << 8) |
+            u8arr[i++]
+        );
+    }
+    return CryptoJS.lib.WordArray.create(words, u8arr.length);
+}
+
+function saveFile(content, fileName, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+function arrayBufferToWordArray(ab) {
+if (ab.byteLength === 0) {
+return "";
+}
+
+const len = ab.byteLength / 4;
+const view = new Uint8Array(ab);
+const words = [];
+for (let i = 0; i < len; i++) {
+    words[i] = view[i * 4] << 24 | view[i * 4 + 1] << 16 | view[i * 4 + 2] << 8 | view[i * 4 + 3];
+}
+return CryptoJS.lib.WordArray.create(words, ab.byteLength);
+}
+
+function copyLink(elementId) {
+    const el = document.createElement('textarea');
+    el.value = document.getElementById(elementId).href; // Get the href attribute
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert('Ссылка скопирована!');
+}
+
+async function encryptAndUpload() {
+    const fileInput = document.getElementById('fileUpload');
+    const encryptionPassword = document.getElementById('encryptionPassword').value;
+
+    if (!fileInput.files.length) {
+        alert('Пожалуйста, выберите файл.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = async function() {
+        const encryptedData = encryptAES(reader.result, encryptionPassword);
+        const formData = new FormData();
+        formData.append('file', new Blob([encryptedData], { type: "application/octet-stream" }));
+
+        try {
+            const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+                maxBodyLength: "Infinity",
+                headers: {
+                    'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+                    'Authorization': `Bearer ${JWT}`
+                }
+            });
+            const link = `https://fleek.ipfs.io/ipfs/${res.data.IpfsHash}`;
+            document.getElementById('fileLink').textContent = link;
+            document.getElementById('fileLink').href = link;
+            alert('Файл успешно загружен!');
+        } catch (error) {
+            console.log(error);
+            alert('Ошибка при загрузке файла.');
+        }
+    }
+
+    reader.readAsArrayBuffer(file);
+}
+</script><script type="text/javascript">
+document.getElementById("search-btn").addEventListener("click", function() {
+    document.getElementById("result-div").style.display = "block";
+});
+</script><script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.3.4/dist/web3.min.js"></script></body>
+</html>
